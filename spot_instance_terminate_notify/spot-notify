@@ -1,0 +1,11 @@
+#/bin/bash
+
+while true;do
+    if [ -z $(curl -Is http://169.254.169.254/latest/meta-data/spot/termination-time | head -1 | grep 404 | cut -d \  -f 2) ];then
+        instanceId=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+        curl -X POST --data-urlencode "payload={\"channel\": \"#channel\", \"username\": \"spot-terminate-notify\", \"text\": \"instance ${instanceId} will be terminated in 2 minutes\" }" https://hooks.slack.com/services/xxxxxxxxxx/xxxxxxxxxxxxxxx
+        break
+    else
+        sleep 5
+    fi
+done

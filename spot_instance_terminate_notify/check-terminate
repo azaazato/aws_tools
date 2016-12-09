@@ -1,0 +1,11 @@
+#!/bin/bash
+# chkconfig: 2345 99 10
+# description: spot instance terminate check
+
+case "$1" in
+    start)
+        /usr/bin/terminate-notify &
+        ;;
+    stop) break ;;
+    *) break ;;
+esac
